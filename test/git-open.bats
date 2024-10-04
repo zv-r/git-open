@@ -183,6 +183,19 @@ setup() {
   assert_output "https://gist.github.com/2d84a6db1b41b4020685"
 }
 
+@test "gh: --file option" {
+  run ../git-open -f readme.txt
+  assert_output "https://github.com/paulirish/git-open/tree/master/readme.txt"
+
+  # and now a new file in a subdirectory.
+  mkdir -p subdir
+  touch subdir/howdy.txt
+  git add subdir
+  git commit -am add-in-howdy
+  run ../git-open -f subdir/howdy.txt
+  assert_output "https://github.com/paulirish/git-open/tree/master/subdir/howdy.txt"
+}
+
 @test "basic: # and % in branch names are URL encoded" {
   # https://github.com/paulirish/git-open/pull/24
   git checkout -B "issue-#42"
@@ -230,7 +243,8 @@ setup() {
 
 @test "basic: http url scheme is preserved" {
   git remote set-url origin "http://github.com/user/repo.git"
-  run ../git-open
+  # ignore any local config like: `url.https://github.com/.insteadof=http://github.com/`
+  GIT_CONFIG_NOSYSTEM=1 run ../git-open
   assert_output "http://github.com/user/repo"
 }
 
@@ -520,6 +534,13 @@ setup() {
   git remote set-url origin "https://git.example.com:7000/XXX/YYY.git"
   run ../git-open
   assert_output "https://git.example.com:7000/XXX/YYY"
+}
+
+@test "gitlab: issue" {
+  git remote set-url origin "git@gitlab.example.com:user/repo"
+  git checkout -B "10-bump-up-to-v2.0"
+  run ../git-open "--issue"
+  assert_output "https://gitlab.example.com/user/repo/issues/10"
 }
 
 ##

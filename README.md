@@ -12,12 +12,12 @@ git open [remote-name] [branch-name]
 
 git open --commit
 git open -c
-   # Open the current commit in the repo website
+    # Open the current commit in the repo website
 
 git open --issue
 git open -i
-   # If this branch is named like issue/#123, this will open the corresponding
-   # issue in the repo website
+    # If this branch is named like issue/#123, this will open the corresponding
+    # issue in the repo website
 
 git open --print
 git open -p
@@ -89,11 +89,19 @@ start zsh, and periodically checking for updates to the git repository. You can
 also add the plugin to a running zsh with `antigen bundle paulirish/git-open`
 for testing before adding it to your `.zshrc`.
 
+#### [Oh-My-Bash](https://github.com/ohmybash/oh-my-bash)
+
+1. `git clone https://github.com/paulirish/git-open.git $OSH_CUSTOM/plugins/git-open`
+2. Add `git-open` to your plugin list - edit `~/.bashrc` and change
+    `plugins=(...)` to `plugins=(... git-open)`
+3. `source ~/.bashrc`
+
 #### [Oh-My-Zsh](http://ohmyz.sh/)
 
 1. `git clone https://github.com/paulirish/git-open.git $ZSH_CUSTOM/plugins/git-open`
-1. Add `git-open` to your plugin list - edit `~/.zshrc` and change
-   `plugins=(...)` to `plugins=(... git-open)`
+2. Add `git-open` to your plugin list - edit `~/.zshrc` and change
+    `plugins=(...)` to `plugins=(... git-open)`
+3. `source ~/.zshrc`
 
 #### [Zgen](https://github.com/tarjoilija/zgen)
 
